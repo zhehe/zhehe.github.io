@@ -17,11 +17,14 @@ var colors = [ "#955", "#595", "#559", "#345"];
 context.font = "30px Arial";
 context.fillText("Filter Demo", 10, 75)
 
-var drawTrueTrajectory = function(number, x, y){
+var drawTrueTrajectory = function(number, x, y, isStart){
 
       context.save();
-      context.lineTo(x, y);
-
+      if(isStart){
+	 context.moveTo(x, y);
+      }else{	
+      	context.lineTo(x, y);
+	}
       context.lineWidth = 5;
       context.strokeStyle = 'blue';
       context.stroke();
@@ -69,7 +72,7 @@ var genTrajectory = function(t, dt, x0, y0){
 	 	x_val = x0 + dt*31.1;
 		y_val = y0 + dt*16.4;
 	}
-	if(t >= 3.0 && t < 10.0){
+	if(t >= 3.0 && t <= 12.0){
 		x_val = x0 + dt*13.1;
 		y_val = y0 + dt*22.2;
 	}
@@ -88,7 +91,11 @@ var simulationEpoch = function(cur_pos, ind, t, dt, t_start, t_end){
 	  var new_t = t + dt;
 	
 	 console.log(new_pos.x, new_pos.y);
-	  drawTrueTrajectory(1,new_pos.x, new_pos.y);
+	if(ind == 0){
+	  drawTrueTrajectory(1,new_pos.x, new_pos.y, True);
+	}else{
+		drawTrueTrajectory(1,new_pos.x, new_pos.y, False)
+	}
 	return [new_pos, new_ind, new_t];
 }
 
