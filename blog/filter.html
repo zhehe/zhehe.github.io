@@ -17,6 +17,7 @@ var colors = [ "#955", "#595", "#559", "#345"];
 context.font = "30px Arial";
 context.fillText("Filter Demo", 10, 75)
 
+<!-- drawing beacon locatios -->
 var drawBeacon = function(number, x, y) {
 	var size = 15;
 	var distance = 3;
@@ -49,6 +50,8 @@ var drawBeacon = function(number, x, y) {
 	
 	context.restore();
 }
+
+<!-- main simulation loop-->
 var simulationEpoch = function(){
   
   for(var i = 0; i < beacon.length; i++){
