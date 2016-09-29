@@ -69,6 +69,11 @@ var genTrajectory = function(t, dt, x0, y0){
 <!-- main simulation loop-->
 var simulationEpoch = function(){
   
+
+}
+
+window.onclick = function() {
+
 var t_start = 0.0;
 var t_end = 300.0;
 var dt = 0.1;
@@ -85,10 +90,6 @@ var dt = 0.1;
 	  drawBeacon(i,pos[ind].x, pos[ind].y);
 	  ind ++;
   }
-}
-
-window.onclick = function() {
-
 	setInterval(function() {
 		simulationEpoch();
 	}, 50);
