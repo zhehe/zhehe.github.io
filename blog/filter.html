@@ -54,11 +54,11 @@ var drawBeacon = function(number, x, y) {
 var genTrajectory = function(t, dt, x0, y0){
 	var x_val = 0;
 	var y_val = 0;
-	if (t < 23.0){
+	if (t < 3.0){
 	 	x_val = x0 + dt*31.1;
 		y_val = y0 + dt*16.4;
 	}
-	if(t >= 23.0 && t < 150.0){
+	if(t >= 3.0 && t < 10.0){
 		x_val = x0 + dt*13.1;
 		y_val = y0 + dt*22.2;
 	}
