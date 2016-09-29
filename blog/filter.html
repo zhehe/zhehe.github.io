@@ -67,10 +67,10 @@ var genTrajectory = function(t, dt, x0, y0){
 }
 
 <!-- main simulation loop-->
-var simulationEpoch = function(pos, ind, t, dt, t_start, t_end){
+var simulationEpoch = function(cur_pos, ind, t, dt, t_start, t_end){
   
 
-          var new_pos = genTrajectory(t, dt, pos[ind].x, pos[ind].y);
+          var new_pos = genTrajectory(t, dt, cur_pos.x, cur_pos.y);
 
 	  var new_ind = ind + 1;
 	
@@ -92,10 +92,10 @@ var dt = 0.1;
   }
 
 	setInterval(function() {
-		res = simulationEpoch(pos, ind, t, dt, t_start, t_end);
+		res = simulationEpoch(pos[ind], ind, t, dt, t_start, t_end);
 		ind = res[1];
 		pos[ind] = res[0];
-	}, 5000);
+	}, 100);
 
 }
 
