@@ -10,12 +10,12 @@ canvas{border:1px solid #ccc;background-color:#fff;}
 <script type='text/javascript'>
 
 var c = document.getElementById("myCanvas");
-var contex = c.getContext("2d");
+var context = c.getContext("2d");
 var beacon = [{x:10, y:20}, {x:600, y:350}, {x:36, y:220}, {x:490, y:150}]
 var colors = [ "#955", "#595", "#559", "#345"];
 
-contex.font = "30px Arial";
-contex.fillText("Filter Demo", 0, 750)
+context.font = "30px Arial";
+context.fillText("Filter Demo", 0, 750)
 
 var drawBeacon = function(number, x, y) {
 	var size = 15;
