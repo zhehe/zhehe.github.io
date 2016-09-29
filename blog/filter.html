@@ -76,6 +76,7 @@ var simulationEpoch = function(pos, ind, t, dt, t_start, t_end){
 	
 	 console.log(pos[ind].x, pos[ind].y);
 	  drawBeacon(1,pos[ind].x, pos[ind].y);
+	return [pos[ind+1], ind];
 }
 
 window.onclick = function() {
@@ -91,7 +92,9 @@ var dt = 0.1;
   }
 
 	setInterval(function() {
-		simulationEpoch(pos, ind, t, dt, t_start, t_end);
+		res = simulationEpoch(pos, ind, t, dt, t_start, t_end);
+		ind = res[1];
+		pos[ind] = res[0];
 	}, 5000);
 
 }
