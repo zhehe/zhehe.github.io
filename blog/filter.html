@@ -80,7 +80,7 @@ var dt = 0.1;
   }
 
   for(t = t_start; t < t_end; t = t +dt){
-		  pos [ind+1] = genTrajectory(t, dt, pos[ind].x, pos[ind].y);
+		  pos[ind+1] = genTrajectory(t, dt, pos[ind].x, pos[ind].y);
 	  drawBeacon(i,pos[ind].x, pos[ind].y);
 	  ind ++;
   }
