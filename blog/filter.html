@@ -89,13 +89,12 @@ var simulationEpoch = function(cur_pos, ind, t, dt, t_start, t_end){
 	  var new_ind = ind + 1;
 	
 	  var new_t = t + dt;
-	  var isStart = False
 	 console.log(new_pos.x, new_pos.y);
 	if(ind == 0){
-		isStart = True;
-	  drawTrueTrajectory(1,new_pos.x, new_pos.y, isStart);
+
+	  drawTrueTrajectory(1,new_pos.x, new_pos.y, true);
 	}else{
-		drawTrueTrajectory(1,new_pos.x, new_pos.y, isStart)
+		drawTrueTrajectory(1,new_pos.x, new_pos.y, false)
 	}
 	return [new_pos, new_ind, new_t];
 }
