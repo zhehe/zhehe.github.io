@@ -73,6 +73,9 @@ var simulationEpoch = function(pos, ind, t, dt, t_start, t_end){
           pos[ind+1] = genTrajectory(t, dt, pos[ind].x, pos[ind].y);
 
 	  ind ++;
+	
+	 console.log(pos[ind].x, pos[ind].y);
+	  drawBeacon(i,pos[ind].x, pos[ind].y);
 }
 
 window.onclick = function() {
@@ -87,13 +90,10 @@ var dt = 0.1;
   	drawBeacon(i,beacon[i].x, beacon[i].y);
   }
 
-  for(t = t_start; t < t_end; t = t +dt){
 	setInterval(function() {
 		simulationEpoch(pos, ind, t, dt, t_start, t_end);
-	}, 50);
-	  	  console.log(pos[ind].x, pos[ind].y);
-	  drawBeacon(i,pos[ind].x, pos[ind].y);
-  }
+	}, 5000);
+
 }
 
 window.onclick();
