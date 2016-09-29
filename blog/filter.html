@@ -73,15 +73,14 @@ var t_start = 0.0;
 var t_end = 300.0;
 var dt = 0.1;
 	var ind = 0;
-	var pos = []
+	var pos = [{x:0}, {y:0}];
 
   for(var i = 0; i < beacon.length; i++){
   	drawBeacon(i,beacon[i].x, beacon[i].y);
   }
 
-	pos[1] = genTrajectory(0, dt, 0, 0)
   for(t = t_start; t < t_end; t = t +dt){
-		  genTrajectory(t, dt, pos[ind].x, pos[ind].y);
+		  pos [ind+1] = genTrajectory(t, dt, pos[ind].x, pos[ind].y);
 	  drawBeacon(i,pos[ind].x, pos[ind].y);
 	  ind ++;
   }
