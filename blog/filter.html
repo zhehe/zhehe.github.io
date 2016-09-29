@@ -1,5 +1,5 @@
 
-<title>Particle Filtering With JavaScript / Canvas</title><style type="text/css">
+<title> Filtering Demo With JavaScript / Canvas</title><style type="text/css">
 body{background-color:#eee;}
 canvas{border:1px solid #ccc;background-color:#fff;}
 </style>
@@ -10,9 +10,48 @@ canvas{border:1px solid #ccc;background-color:#fff;}
 <script type='text/javascript'>
 
 var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
-ctx.moveTo(0,0);
-ctx.lineTo(200,100);
-ctx.stroke();
+var contex = c.getContext("2d");
+var beacon = [{x:10, y:20}, {x:600, y:350}, {x:36, y:220}, {x:490, y:150}]
+var colors = [ "#955", "#595", "#559", "#345"];
+
+  
+var drawBeacon = function(number, x, y) {
+	var size = 15;
+	context.save();
+	context.translate(x, y);
+		
+	context.globalAlpha = 0.6;
+	context.fillStyle = colors[number] || "#999";
+	context.strokeStyle = "#111";
+	
+	context.fillRect(-size / 2, -size / 2, size, size);
+	context.rotate(Math.PI / 4);
+	context.fillRect(-size / 2, -size / 2, size, size);
+	
+	context.globalAlpha = 1;
+	
+		context.fillStyle = "rgba(150, 150, 150, 0.1)";
+		context.strokeStyle = "rgba(150, 150, 150, .30)";
+		
+		context.beginPath();
+		context.arc(0, 0, distance * 1.05, 0, Math.PI * 2, false);
+		context.stroke();
+		context.fill();
+		context.closePath();
+		context.beginPath();
+		context.arc(0, 0, distance * 0.95, 0, Math.PI * 2, false);
+		context.stroke();
+		context.fill();
+		context.closePath();
+	
+	context.restore();
+}
+var simulation_epoch = function(){
+  
+  for(var i = 0; i < beacon.length; i++){
+  drawBeacon(i,beacon[i].x, beacon[i].y)
+  }
+  
+}
 
 </script>
