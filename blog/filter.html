@@ -51,11 +51,39 @@ var drawBeacon = function(number, x, y) {
 	context.restore();
 }
 
+var genTrajectory = function(t, dt, x0, y0){
+	var x_val = 0;
+	var y_val = 0;
+	if (t < 23.0){
+	 	x_val = x0 + dt*3.1;
+		y_val = y0 + dt*1.4;
+	}
+	if(t >= 23.0 && t < 50.0){
+		x_val = x0 + dt*1.1;
+		y_val = y0 + dt*2.2;
+	}
+	
+	return {x:x_val, y :y_val}
+}
+
 <!-- main simulation loop-->
 var simulationEpoch = function(){
   
+var t_start = 0.0;
+var t_end = 300.0;
+var dt = 0.1;
+	var ind = 0;
+	var pos = []
+
   for(var i = 0; i < beacon.length; i++){
   	drawBeacon(i,beacon[i].x, beacon[i].y);
+  }
+
+	pos[1] = genTraj(0, dt, 0, 0)
+  for(t = t_start; t < t_end; t = t +dt){
+		  genTraj(t, dt, pos[ind].x, pos[ind].y);
+	  drawBeacon(i,pos[ind].x, pos[ind].y);
+	  ind ++;
   }
 }
 
