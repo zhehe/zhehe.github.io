@@ -17,6 +17,17 @@ var colors = [ "#955", "#595", "#559", "#345"];
 context.font = "30px Arial";
 context.fillText("Filter Demo", 10, 75)
 
+var drawTrueTrajectory = function(number, x, y){
+
+      context.save();
+      context.lineTo(x, y);
+
+      context.lineWidth = 5;
+      context.strokeStyle = 'blue';
+      context.stroke();
+      context.restore();
+}
+
 <!-- drawing beacon locatios -->
 var drawBeacon = function(number, x, y) {
 	var size = 15;
@@ -77,7 +88,7 @@ var simulationEpoch = function(cur_pos, ind, t, dt, t_start, t_end){
 	  var new_t = t + dt;
 	
 	 console.log(new_pos.x, new_pos.y);
-	  drawBeacon(1,new_pos.x, new_pos.y);
+	  drawTrueTrajectory(1,new_pos.x, new_pos.y);
 	return [new_pos, new_ind, new_t];
 }
 
