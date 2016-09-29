@@ -47,11 +47,18 @@ var drawBeacon = function(number, x, y) {
 	
 	context.restore();
 }
-var simulation_epoch = function(){
+var simulationEpoch = function(){
   
   for(var i = 0; i < beacon.length; i++){
   drawBeacon(i,beacon[i].x, beacon[i].y)
   }
+
+window.onclick = function() {
+
+	setInterval(function() {
+		simulationEpoch();
+	}, 50);
+}
   
 }
 
