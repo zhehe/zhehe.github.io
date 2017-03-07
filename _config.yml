@@ -1,25 +1,3 @@
-# Site settings
-title: Empty Blog
-header-img: img/home-bg.jpg
-email: your-email@yourdomain.com
-copyright_name: Your/Project/Corporate Name
-description: "Write your site description here. It will be used as your sites meta description as well!"
-baseurl: ""
-url: ""
-twitter_username: 
-github_username:  
-facebook_username:  
-email_username:  your-email@yourdomain.com
-
-# Google Analytics
-# To enable google analytics, uncomment below line with a valid Google Tracking ID
-# google_tracking_id:
-
-# Build settings
+name: Test
 markdown: kramdown
-highlighter: rouge
-permalink: pretty
-paginate: 5
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
-
-gems: [jekyll-paginate, jekyll-feed]
+permalink: /blog/:year/:month/:day/:title

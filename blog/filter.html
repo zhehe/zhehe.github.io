@@ -1,0 +1,124 @@
+
+<title> Filtering Demo With JavaScript (test) / Canvas</title><style type="text/css">
+body{background-color:#eee;}
+canvas{border:1px solid #ccc;background-color:#fff;}
+</style>
+
+<canvas id="myCanvas" width="800" height="400">
+</canvas>
+
+<script type='text/javascript'>
+
+var c = document.getElementById("myCanvas");
+var context = c.getContext("2d");
+var beacon = [{x:10, y:20}, {x:600, y:350}, {x:36, y:220}, {x:490, y:150}]
+var colors = [ "#955", "#595", "#559", "#345"];
+
+context.font = "30px Arial";
+context.fillText("Filter Demo", 10, 75)
+
+var drawTrueTrajectory = function(number, x, y, isStart){
+
+      context.save();
+      if(isStart){
+	 context.moveTo(x, y);
+      }else{	
+      	context.lineTo(x, y);
+	}
+      context.lineWidth = 5;
+      context.strokeStyle = 'blue';
+      context.stroke();
+      context.restore();
+}
+
+<!-- drawing beacon locatios -->
+var drawBeacon = function(number, x, y) {
+	var size = 15;
+	var distance = 3;
+	context.save();
+	context.translate(x, y);
+		
+	context.globalAlpha = 0.6;
+	context.fillStyle = colors[number] || "#999";
+	context.strokeStyle = "#111";
+	
+	context.fillRect(-size / 2, -size / 2, size, size);
+	context.rotate(Math.PI / 4);
+	context.fillRect(-size / 2, -size / 2, size, size);
+	
+	context.globalAlpha = 1;
+	
+		context.fillStyle = "rgba(150, 150, 150, 0.1)";
+		context.strokeStyle = "rgba(150, 150, 150, .30)";
+		
+		context.beginPath();
+		context.arc(0, 0, distance * 1.05, 0, Math.PI * 2, false);
+		context.stroke();
+		context.fill();
+		context.closePath();
+		context.beginPath();
+		context.arc(0, 0, distance * 0.95, 0, Math.PI * 2, false);
+		context.stroke();
+		context.fill();
+		context.closePath();
+	
+	context.restore();
+}
+
+var genTrajectory = function(t, dt, x0, y0){
+	var x_val = 0;
+	var y_val = 0;
+	if (t < 3.0){
+	 	x_val = x0 + dt*31.1;
+		y_val = y0 + dt*16.4;
+	}
+	if(t >= 3.0 && t <= 12.0){
+		x_val = x0 + dt*13.1;
+		y_val = y0 + dt*22.2;
+	}
+	
+	return {x:x_val, y :y_val}
+}
+
+<!-- main simulation loop-->
+var simulationEpoch = function(cur_pos, ind, t, dt, t_start, t_end){
+  
+
+          var new_pos = genTrajectory(t, dt, cur_pos.x, cur_pos.y);
+
+	  var new_ind = ind + 1;
+	
+	  var new_t = t + dt;
+	 console.log(new_t, new_pos.x, new_pos.y);
+	if(ind == 0){
+
+	  drawTrueTrajectory(1,new_pos.x, new_pos.y, true);
+	}else{
+		drawTrueTrajectory(1,new_pos.x, new_pos.y, false)
+	}
+	return [new_pos, new_ind, new_t];
+}
+
+window.onclick = function() {
+var t = 0.0
+var t_start = 0.0;
+var t_end = 300.0;
+var dt = 0.1;
+	var ind = 0;
+	var pos = [{x:200,y:100}];
+
+  for(var i = 0; i < beacon.length; i++){
+  	drawBeacon(i,beacon[i].x, beacon[i].y);
+  }
+
+	setInterval(function() {
+		res = simulationEpoch(pos[ind], ind, t, dt, t_start, t_end);
+		ind = res[1];
+		pos[ind] = res[0];
+		t = res[2];
+	}, 100);
+
+}
+
+window.onclick();
+</script>

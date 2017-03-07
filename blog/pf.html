@@ -21,6 +21,7 @@ var previousAverageState = { x: 0, y : 0 };
 var isAngry = false;
 var angerLevel = 0;
 var changeInDistanceToSounder = [ ];
+
 var generateSounder = function() {
 	return {
 		x : Math.random() * canvas.width,
@@ -30,6 +31,7 @@ var generateSounder = function() {
 		age : 0
 	}
 }
+
 var generateState = function() {
 	return {
 		x : Math.random() * canvas.width,
@@ -41,6 +43,7 @@ var generateState = function() {
 		age : 0
 	}
 }
+
 var cloneState = function(st) {
 	return {
 		x : st.x + 1 * Math.random() - 0.5,
@@ -52,6 +55,7 @@ var cloneState = function(st) {
 		age : 0,
 	}
 }
+
 var cloneSounder = function(sn) {
 	return {
 		x : sn.x + 10 * (Math.random() - 0.5),
@@ -61,6 +65,7 @@ var cloneSounder = function(sn) {
 		age : 0
 	}
 }
+
 var advanceState = function(st) {
 	return {
 		x : Math.min(canvas.width - 15, Math.max(15, st.x + st.dx)),
@@ -73,6 +78,7 @@ var advanceState = function(st) {
 		age : st.age + 1
 	}
 }
+
 var advanceSounder = function(sn) {
 	return {
 		x : Math.min(canvas.width - 15, Math.max(15, sn.x + sn.dx)),
@@ -83,6 +89,7 @@ var advanceSounder = function(sn) {
 		age : sn.age + 1
 	}
 }
+
 var applyActuators = function(st, rudder, motor) {
 	return {
 		x : st.x + st.dx,
@@ -94,6 +101,7 @@ var applyActuators = function(st, rudder, motor) {
 		age : st.age
 	}
 }
+
 var decideActuation = function() {
 	var averageState = computeAverageState();
 	var x = averageState.x;
@@ -146,6 +154,7 @@ var decideActuation = function() {
 	
 	return { 'rudder' : rudderLevel, 'motor' : motorLevel }
 }
+
 var computeAverageState = function() {
 	var ax = 0;
 	var ay = 0;
@@ -172,6 +181,7 @@ var computeAverageState = function() {
 		age : 0
 	}
 }
+
 var computeAverageSounder = function(listOfSounders) {
 	var ax = 0;
 	var ay = 0;
@@ -196,6 +206,7 @@ var computeAverageSounder = function(listOfSounders) {
 		age : 0
 	}
 }
+
 var computeCertainty = function(x, y) {
 	var stdDev = 0;
 	
@@ -207,15 +218,18 @@ var computeCertainty = function(x, y) {
 	
 	return particles.length / Math.sqrt(stdDev) * 10; // [factor of ten to make units convenient].
 }
+
 var measureDistanceTo = function(st, x, y) {
 	return measureActualDistanceTo(st, x, y) * (1 + 0.1 * Math.random() - 0.05);
 }
+
 var measureActualDistanceTo = function(st, x, y) {
 	var dx = st.x - x;
 	var dy = st.y - y;
 	
 	return Math.sqrt(dx * dx + dy * dy);
 }
+
 var drawState = function(st, isSpecial, isComputed) {
 	var sz = isSpecial ? 10 : 3;
 	var arrowLength = sz * Math.sqrt(st.dx * st.dx + st.dy * st.dy) * 2;
@@ -235,6 +249,7 @@ var drawState = function(st, isSpecial, isComputed) {
 	context.closePath();
 	context.restore();
 }
+
 var drawSounder = function(number, x, y, distance, estimate, isSimulated) {
 	var size = 15;
 	
@@ -281,6 +296,7 @@ var drawSounder = function(number, x, y, distance, estimate, isSimulated) {
 	
 	context.restore();
 }
+
 var drawFakeSounder = function(number, x, y) {
 	var size = 3;
 	
@@ -296,6 +312,7 @@ var drawFakeSounder = function(number, x, y) {
 	context.closePath();
 	context.restore();
 }
+
 var advanceSimulation = function() {
 	var actuation = decideActuation();
 	var rudder = actuation['rudder'];
@@ -439,6 +456,7 @@ var advanceSimulation = function() {
 	context.font = "bold 30px Helvetica,sans-serif";
 	context.fillText(certainty, 50, 540);
 }
+
 window.onclick = function() {
 	for (var i = 0; i < 500; i++) {
 		particles[i] = generateState();
@@ -451,15 +469,19 @@ window.onclick = function() {
 	}
 	
 	actualState = generateState();
+
 	setInterval(function() {
 		advanceSimulation();
 	}, 50);
 }
+
 window.onkeydown = function() {
 	removeSounderFraction = 0.1;
 }
+
 window.onkeyup = function() {
 	removeSounderFraction = 0.001;
 }
+
 window.onclick();
 </script>
